@@ -1,8 +1,18 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
 a {
   color: #00B7FF;
 }
+
+p{
+  text-align: center;
+}
+
+#hero{
+  position: relative;
+  margin-top: 150px;
+  margin-right: 400px;
+  margin-left: 400px;
+  background-color: rgba(255,255,255,0.7);
+  border-radius: 20px;
+  font-family: 'Lato', sans-serif;
+}
+
