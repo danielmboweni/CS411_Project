@@ -1,8 +1,40 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
 a {
   color: #00B7FF;
+}
+
+p{
+  text-align: center;
+}
+
+#hero{
+  position: relative;
+  margin-top: 150px;
+  margin-right: 400px;
+  margin-left: 400px;
+  background-color: black;
+  border-radius: 20px;
+  font-family: 'Lato', sans-serif;
+}
+#hero h1{
+  color: white;
+  font-weight: bolder;
+}
+
+#fb-root{
+  padding-bottom: 15px;
+}
+.search-container{
+  padding-top: 15px;
+}
+
+input{
+  margin-right: 15px;
+  margin-left: 15px;
+  border-radius: 5px;
+  border-bottom-color: aliceblue;
+}
+
+button{
+  margin-left: 15px;
+  margin-right: 15px;
 }
