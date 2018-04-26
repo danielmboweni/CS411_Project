@@ -1,0 +1,22 @@
+#header{
+    position: relative;
+    text-align: center;
+    margin-top: 90px;
+    margin-right: 200px;
+    margin-left: 200px;
+    font-family: 'Lato', sans-serif;
+}
+#header h1{
+    color: black;
+    font-weight: bolder;
+}
+#header h2{
+    color: black;
+    font-weight: bolder;
+}
+#bod{
+    float:right;
+}
+#events{
+    float: left;
+}
