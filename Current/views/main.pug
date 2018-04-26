@@ -1,0 +1,28 @@
+doctype html
+html
+    head
+        title= Main
+        script(src = 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.dev.js')
+        script(src = '/bin/www.js')
+
+        link(rel='stylesheet', href='/stylesheets/mainsheet.css')
+    body
+        block content
+            #header
+                h1 Pickup
+                h2 Home
+                div#chat
+                    div#chatWindow
+                        div#output
+
+                        div#feedback
+                    input#handle(type = 'text' placeholder = "Handle")
+                    input#message(type = 'text' placeholder = "Message")
+                    button#send Send
+                //div#events
+                  //p Event Options
+                    //form(action='/home' method='GET')
+                        //input(type='submit' id  = 'createEvent' value= 'Create Event')
+                        //input(type='submit' id  = 'eventHistory' value= 'Past History')
+
+    script(src = '/chat.js')

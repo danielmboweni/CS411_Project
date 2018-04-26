@@ -1,0 +1,60 @@
+doctype html
+html
+    head
+        meta(charset='UTF-8')
+        title Pickup
+        //linking style sheet
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        //awesome fonts
+        link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+        // Latest compiled and minified CSS
+        link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+        //google fonts
+        link(href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet')
+        // jQuery library
+        script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
+        // Latest compiled JavaScript
+        script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+
+    body
+        block content
+            //hero jumbotron
+            #hero.jumbotron.text-center
+                h1 PICKUP
+
+
+                //facebook login button
+                #fb-root
+                .fb-login-button(data-width='300 px' data-max-rows='1' data-size='large' data-button-type='login_with' data-show-faces='false' data-auto-logout-link='false' data-use-continue-as='true')
+                fb:login-button(scope='public_profile,email' onlogin='checkLoginState();')
+
+                //search bar
+                .search-container
+                    form#searchBar(action='/' method='POST')
+                        input(type='text' placeholder='Keyword' name='term' id  = 'term')
+                        input(type='text' placeholder='Location' name='location' id  = 'location')
+                        button.fa.fa-search(type='submit' id  = 'submit')
+
+            //testing returns first result of the yelp search
+            p #{name}
+            p #{address}
+            p #{phone}
+
+
+        script.
+            //facebook login
+            window.fbAsyncInit = function() {
+                FB.init({
+                    appId            : '233735173856816',
+                    autoLogAppEvents : true,
+                    xfbml            : true,
+                    version          : 'v2.12'
+                });
+            };
+            (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.12&appId=233735173856816&autoLogAppEvents=1';
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
