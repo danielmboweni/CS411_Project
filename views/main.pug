@@ -1,0 +1,32 @@
+doctype html
+html
+    head
+        title= Main
+        script(src = 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.dev.js')
+        link(rel='stylesheet', href='/stylesheets/mainsheet.css')
+    body
+        block content
+            #header
+                h1 Pickup
+                h2 Home
+                #name
+                div#chat
+                    h2 Live Chat
+                    div#chatWindow
+                        div#output
+
+                        div#feedback
+                    input#handle(type = 'text' placeholder = "Handle")
+                    input#message(type = 'text' placeholder = "Message")
+                    button#send Send
+                div#sidepanel
+                    h2 Options
+                    button#create Create Event
+                    p
+                    button#preference Preferences
+                    p
+                    button#logout Logout
+
+
+
+            script(src = '/javascripts/chat.js')
