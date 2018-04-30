@@ -1,18 +1,26 @@
-a {
-  color: #00B7FF;
+@import url('https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon');
+/* HOME PAGE */
+#bg {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-position: 0px 0px;
+  z-index: -1;
 }
-
-p{
-  text-align: center;
-}
-
 #hero{
   position: relative;
   margin-top: 150px;
   margin-right: 400px;
   margin-left: 400px;
-  background-color: black;
-  border-radius: 20px;
+  border-color: aliceblue;
+  background-color: transparent;
+  border-style: solid;
+  border-width: 5px;
   font-family: 'Lato', sans-serif;
 }
 #hero h1{
@@ -23,18 +31,90 @@ p{
 #fb-root{
   padding-bottom: 15px;
 }
-.search-container{
+
+/* CREATE EVENT PAGE */
+#createForms{
+  background-color: transparent;
+}
+#title{
+  margin-bottom: 0px;
+  text-align: center;
+  font-family: 'Black Han Sans', sans-serif;
+  color: aliceblue;
+  background: #F2994A;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #F2C94C, #F2994A);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #F2C94C, #F2994A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+#banner1,#banner2{
+  font-family: 'Do Hyeon', sans-serif;
+  width: 45%;
+  text-align: center;
+  background-color: darkslateblue;
+  margin-top: 50px;
+  margin-bottom: 0px;
   padding-top: 15px;
+  padding-bottom: 15px;
+  color:whitesmoke;
+  font-style: bold;
+  font-size: 24px;
+}
+#basic, #search{
+  font-family: 'Do Hyeon', sans-serif;
+  width: 45%;
+  border-style: double;
+  border-width: 5px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  border-color: darkslateblue;
+  font-size: 18px;
+}
+#form{
+  float:right;
+  margin-top: 20px;
+}
+.form-control{
+  margin-bottom: 20px;
 }
 
-input{
-  margin-right: 15px;
-  margin-left: 15px;
-  border-radius: 5px;
-  border-bottom-color: aliceblue;
+/* MAIN PAGE */
+#main{
+  float:left;
+  margin: 0px 0px 0px 0px;
 }
 
-button{
-  margin-left: 15px;
-  margin-right: 15px;
+#user{
+  margin-left: 30px;
 }
+
+#buttons{
+    margin-top: 15px;
+}
+#mainbut{
+  color: white;
+  background-color: transparent;
+  border-radius: 0px;
+  border-style: solid;
+  border-width: 1px;
+}
+#mainlabel{
+  color:white;
+}
+
+/* JOIN EVENT PAGE */
+#eventListing{
+  height: 300px;
+  width: 50%;
+}
+
+#joinbtn{
+  text-align: center;
+  float: center;
+  margin-left: 500px;
+  background-color: grey;
+  color: white;
+}
+
+
+

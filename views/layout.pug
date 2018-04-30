@@ -1,7 +1,26 @@
 doctype html
 html
   head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    meta(charset='UTF-8')
+    title Pickup
+    block scripts
+        //linking style sheet
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        //awesome fonts
+        link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+        // Latest compiled and minified CSS
+        link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+
+        // jQuery library
+        script(src= 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
+        script(src="//code.jquery.com/jquery-1.11.1.min.js")
+        // Latest compiled JavaScript
+        script(src= 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+
+        // Angular (minified)
+        script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js')
+
+
+
   body
     block content

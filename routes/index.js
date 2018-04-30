@@ -1,58 +1,123 @@
 var express = require('express');
     router = express.Router();
     app = express();
+    config = require('./config')
+    http = require("http");
+    querystring = require('querystring');
+var url = 'mongodb://localhost:27017/';
+var MongoClient = require('mongodb').MongoClient;
 
 const yelp = require('yelp-fusion');
-const api_key = 'mj09D1hJNRjXF_hmstbghBmvy61wjfhp9ACIE5P6SP0qy0QvjUthGt9w2XzvmtzkqIlGc34lKNrrIZlPFutzsmvOmiphaV93bnxh3DTBTJrqvcFxsOOy9g-JI8m2WnYx';
+const api_key = config.Yelp_Key;
 const client = yelp.client(api_key);
+var username;
+var joined = [];
+var created = [];
 
 /* GET home page. */
 app.get('/', function(req, res) {
-
     res.render('index');
 });
 
-app.post('/',function(req,res){
+/*GET CREATE EVENT PAGE */
+app.get('/createEvent', function(req, res){
+    res.render('createevent');
+});
+
+/*GET AUTHORIZED PAGE*/
+app.post('/authorized', function(req, res){
+    username = req.body.username;
+    console.log(username);
+    res.render('main');
+});
+
+/*GET MAIN PAGE*/
+app.get('/main', function(req, res){
+    res.render('main');
+});
+
+/*YELP LOCATION SEARCH*/
+app.post('/loc',function(req,res){
     var keyword = req.body.term;
     var loc = req.body.location;
     var searchRequest = {
         term: keyword,
-        location: loc,
-    }
-
-    var output = {
-        name: "",
-        rating: "",
-        address: "",
-        phone: ""
+        location: loc
     };
+
+    var resultss = [];
+
     console.log(searchRequest);
     // noinspection JSAnnotator
     client.search(searchRequest).then(response => {
-        console.log("Here", response);
+        r = response.jsonBody.businesses;
 
-    r = response.jsonBody.businesses[0];
+        //push results into an array
+        for(i = 0; i< r.length-1; i ++){
+            out = response.jsonBody.businesses[i];
+            resultss.push({
+                name: out.name,
+                rating: out.rating,
+                address: out.location.display_address,
+                phone: out.display_phone,
+                img: out.image_url
+            });
+        };
 
-    console.log(r);
-    output.name = r.name;
-    output.address = r.location.display_address;
-    output.phone = r.display_phone;
-    output.rating = r.rating;
-    const prettyJson = JSON.stringify(output, null, 4);
+        console.log(resultss);
 
-    res.render('index', {
-        term: searchRequest.term,
-        name: output.name,
-        address: output.address,
-        phone: output.phone
+        res.render('createEvent', {result:JSON.stringify(resultss)});
 
     });
 
 });
 
+/*CREATED EVENT CONFIRM*/
+app.post('/loc',function(req,res){
+    var eventCon = {
+        name: req.body.eventName,
+        maxppl: req.body.player,
+        date: req.body.timed,
+        location: req.body.location
+    };
+    created.push({name: req.body.eventName});
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("pickupEvents");
+        dbo.collection("events").insertOne(eventCon, function(err, res) {
+            if (err) throw err;
+            console.log("1 document inserted");
+            db.close();
+        });
+    });
+    res.render('createEvent', {confirmed:JSON.stringify(eventCon)});
+});
 
-    console.log("First result", output);
+/*GET JOIN PAGE*/
+app.get('/join',function(req,res){
+
+    MongoClient.connect(url, function(err, db) {
+        var events = [];
+        if (err) throw err;
+        var dbo = db.db("pickupEvents");
+        dbo.collection("events").find({}).toArray(function(err, r) {
+            if (err) throw err;
+            for(i = 0; i< r.length-1; i ++) {
+                events.push(r[i]);
+
+            };
+            db.close();
+            console.log(events);
+            res.render('joinEvent', {eventList:JSON.stringify(events)});
+        });
+    });
 
 });
 
+
 module.exports = app;
+module.exports = function(io) {
+    var app = require('express');
+    var router = app.Router();
+    return router;
+};

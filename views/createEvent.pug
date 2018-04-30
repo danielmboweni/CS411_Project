@@ -1,0 +1,72 @@
+//- createEvent.pug
+extends layout.pug
+
+block content
+    #createForms
+        .jumbotron#title
+            h1 Create an Event
+            a#mainbut.btn.btn-default(href='./myEvents' role='button') My Events
+            a#mainbut.btn.btn-default(href='./join' role='button') Join Event
+        .container#banner2
+        .container#search
+            h3 Find a Location
+            form#yelp(action='/loc' method='post')
+                //-search for location tab
+                .form-row
+                    label.form-check-label(for = 'term') Search Term
+                    input.form-control(type='text' placeholder='Basketball' name='term' id  = 'term' required)
+
+                .form-row
+                    label.form-check-label(for = 'location') Location
+                    input.form-control(type='text' placeholder='New York, NY' name='location' id  = 'location' required)
+                    button#form.btn.btn-default Search &nbsp;
+                        span.glyphicon.glyphicon-search
+
+            .container#basics
+
+            form(action='/myEvents' method='POST')
+                //- testing multiple result return
+                .pre-scrollable#locChoice
+                h3 Enter Event Specs
+                //-basic info tab
+                .form-row
+                    label.form-check-label(for = 'eventName') Event Name
+                    input.form-control(type='text' placeholder='Baseball Game' name='eventName' id  = 'eventName')
+
+                .form-row
+                    label.form-check-label(for = 'timed') Time of Event
+                    input.form-control(type="datetime-local" name="timed" id  = 'timed' required)
+                .form-row
+                    label.form-check-label(for = 'player') Number of Players Needed
+                    input.form-control(type='text' placeholder='Max Players' name='player' id  = 'player' required)
+                button#form.btn.btn-default(type = 'submit' onclick="myFunction()") Create
+
+
+
+    script.
+        $(document).ready(function() {
+            var results = !{result};
+            var checkVal;
+            $.each(results, function(key, value) {
+                checkVal = value.address.toString();
+                checkVal = checkVal.split(' ').join('_');
+                var r = $('<div class = "row" id = "result">' +
+                            '<div class = "col-sm-8">'+
+                            '<input type ="radio" name  = "location" class="form-check-input" value ='+ checkVal
+                            + ' required>'
+                            + key+ ": "+value.name + '<br>'
+                            + value.address + '<br>'
+                            + value.phone + '<br>'+
+                            "Rating: "+ value.rating + '</input></div>'+
+                            '<div class = "col-sm-4">'+
+                            '<img class="rounded float-left img-thumbnail" alt="not available" src='
+                            +value.img+'>'+
+                            '</div><br>');
+                $('#locChoice').append(r);
+
+            });
+
+            function myFunction() {
+                alert("Event Created");
+            }
+        });

@@ -1,8 +1,78 @@
 doctype html
 html
     head
-        title= Main
+        meta(charset='UTF-8')
+        title Pickup
+        //linking style sheet
         link(rel='stylesheet', href='/stylesheets/style.css')
+        //awesome fonts
+        link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+        // Latest compiled and minified CSS
+        link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+        //google fonts
+        link(href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet')
+        // jQuery library
+        script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
+        // Latest compiled JavaScript
+        script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+
+
     body
         block content
-            h1 Welcome to Pickup
+            #hero.jumbotron.text-center
+                h1 Welcome to Pickup
+                form#mainuser.form-inline(action='/authorized' method='POST')
+                    .row
+                        .col-md-8#user
+                            label#mainlabel.form-check-label(for = 'username') Handle Name &nbsp;
+                            input(type='text' name='username' id  = 'username' placeholder='John Doe' required)
+                        button#main.btn.btn-default(type = 'submit') Enter
+
+                #mainbuttons.container-fluid.row
+                    a#mainbut.btn.btn-default(href='./myEvents' role='button') My Events
+                    a#mainbut.btn.btn-default(href='./createEvent' role='button') Create Event
+                    a#mainbut.btn.btn-default(href='./join' role='button') Join Event
+
+            //granim gradient bg
+            canvas#bg
+            script(src = "/javascripts/granim.min.js")
+
+        script.
+            $(document).ready(function() {
+                if (window.location.href == 'http://localhost:3000/main'){
+                    $( "#mainbuttons" ).hide();
+                }else{
+                    $( "#mainbuttons" ).show();
+                    $( "#mainuser" ).hide();
+                };
+                (function (d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (d.getElementById(id)) return;
+                    js = d.createElement(s);
+                    js.id = id;
+                    js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.12&appId=233735173856816&autoLogAppEvents=1';
+                    fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));
+
+                var granimInstance = new Granim({
+                    element: '#bg',
+                    name: 'granim',
+                    direction: 'diagonal', // 'diagonal', 'top-bottom', 'radial'
+                    opacity: [1, 1],
+                    isPausedWhenNotInView: true,
+                    states: {
+                        "default-state": {
+                            gradients: [
+                                ['#fc5c7d', '#6a82fb'],
+                                ['#e1eec3', '#f05053'],
+                                ['#be93c5', '#7bc6cc'],
+                                ['#74ebd5', '#acb6e5'],
+                                ['#6190e8', '#a7bfe8']
+
+                            ]
+                        }
+                    }
+                });
+            });
+
+

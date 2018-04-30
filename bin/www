@@ -34,7 +34,7 @@ var server = https.createServer(httpsOptions,app);
  * Socket.io
  */
 
-var io = app.io
+var io = app.io;
 io.attach( server );
 
 /**
