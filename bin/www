@@ -5,21 +5,37 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('untitled:server');
+var debug = require('debug')('CS_Project:server');
 var http = require('http');
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '3004');
 app.set('port', port);
 
 /**
- * Create HTTP server.
+ * Create HTTPS server.
+ */
+var https = require('https');
+var fs = require('fs');
+var path = require('path');
+var directoryToServe = 'client';
+
+var httpsOptions= {
+    cert: fs.readFileSync(path.join(__dirname, 'server.crt')),
+    key: fs.readFileSync(path.join(__dirname, 'server.key'))
+};
+var server = https.createServer(httpsOptions,app);
+//var server = http.createServer(app);
+
+/**
+ * Socket.io
  */
 
-var server = http.createServer(app);
+var io = app.io
+io.attach( server );
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -88,3 +104,25 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+
+/*
+//Socket setup
+var socket = require('socket.io');
+var io = socket(server);
+io.on('connection',function(socket) {
+    console.log('made socket connection');
+    socket.on('disconnect', function() {
+        console.log('user disconnected');
+    });
+    socket.on('chat message',function(data){
+        console.log('message: ' + data.message);
+      //console.log("message received");
+        //io.sockets.emit('chat',data);
+    });
+
+    // Handle typing event
+    socket.on('typing', function(data) {
+        socket.broadcast.emit('typing', data);
+    });
+});*/
