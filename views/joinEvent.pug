@@ -17,6 +17,9 @@ block content
         $(document).ready(function() {
             var events = !{eventList};
             var loc;
+            if(events == null or events == undefined){
+                $('#eventListing').append($('<h3>No Events Available at this Time</h3>'));
+            }
             $.each(events, function(key, value) {
                 loc = value.location;
                 if (loc != null){

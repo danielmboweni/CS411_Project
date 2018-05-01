@@ -1,9 +1,9 @@
 var express = require('express');
-    router = express.Router();
-    app = express();
-    config = require('./config')
-    http = require("http");
-    querystring = require('querystring');
+router = express.Router();
+app = express();
+config = require('./config')
+http = require("http");
+querystring = require('querystring');
 var url = 'mongodb://localhost:27017/';
 var MongoClient = require('mongodb').MongoClient;
 
@@ -13,6 +13,31 @@ const client = yelp.client(api_key);
 var username;
 var joined = [];
 var created = [];
+
+/* GET home page. */
+app.get('/', function(req, res, next) {
+  res.render('index');
+});
+
+app.get('/home',function (req,res) {
+    res.render('home');
+});
+
+app.get('/home/pref',function (req,res) {
+    res.render('pref');
+});
+
+app.get('/home/join',function (req,res) {
+    res.render('join');
+});
+
+app.get('/home/create',function (req,res) {
+    res.render('create');
+});
+
+app.get('/home/myEvents',function (req,res) {
+    res.render('myEvents.pug');
+});
 
 /* GET home page. */
 app.get('/', function(req, res) {
@@ -52,23 +77,23 @@ app.post('/loc',function(req,res){
     client.search(searchRequest).then(response => {
         r = response.jsonBody.businesses;
 
-        //push results into an array
-        for(i = 0; i< r.length-1; i ++){
-            out = response.jsonBody.businesses[i];
-            resultss.push({
-                name: out.name,
-                rating: out.rating,
-                address: out.location.display_address,
-                phone: out.display_phone,
-                img: out.image_url
-            });
-        };
+    //push results into an array
+    for(i = 0; i< r.length-1; i ++){
+        out = response.jsonBody.businesses[i];
+        resultss.push({
+            name: out.name,
+            rating: out.rating,
+            address: out.location.display_address,
+            phone: out.display_phone,
+            img: out.image_url
+        });
+    };
 
-        console.log(resultss);
+    console.log(resultss);
 
-        res.render('createEvent', {result:JSON.stringify(resultss)});
+    res.render('createEvent', {result:JSON.stringify(resultss)});
 
-    });
+});
 
 });
 
@@ -115,9 +140,10 @@ app.get('/join',function(req,res){
 });
 
 
-module.exports = app;
 module.exports = function(io) {
     var app = require('express');
     var router = app.Router();
     return router;
 };
+
+module.exports = app;

@@ -1,0 +1,65 @@
+doctype html
+html(lang='en')
+    head
+        title Bootstrap Example
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css')
+        script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js')
+        script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js')
+    body
+        .container
+            h2 Modal Example
+            // Button to Open the Modal
+            button.btn.btn-primary(type='button', data-toggle='modal', data-target='#myModal')
+                | Open modal
+            // The Modal
+            #myModal.modal.fade
+                .modal-dialog
+                    .modal-content
+                        // Modal Header
+                        .modal-header
+                            h4.modal-title Update Activity Preferences
+                            button.close(type='button', data-dismiss='modal') ×
+                        // Modal body
+                        .modal-body
+                            div.form-group
+                                h3 Baseball
+                                label(for="skill1") Skill Level:
+                                select(name="skill" id  = 'skill1')
+                                    option(value='beginner') Beginner
+                                    option(value="intermediate") Intermediate
+                                    option(value="expert") Expert
+                            div.form-group
+                                h3 Soccer
+                                label(for="skill2") Skill Level:
+                                    select(name="skill" id  = 'skill2')
+                                        option(value='beginner') Beginner
+                                        option(value="intermediate") Intermediate
+                                        option(value="expert") Expert
+                            div.form-group
+                                h3 Basketball
+                                label(for="skill3") Skill Level:
+                                select(name="skill" id  = 'skill3')
+                                    option(value='beginner') Beginner
+                                    option(value="intermediate") Intermediate
+                                    option(value="expert") Expert
+                            div.form-group
+                                h3 Football
+                                label(for="skill4") Skill Level:
+                                select(name="skill" id = 'skill4')
+                                    option(value='beginner') Beginner
+                                    option(value="intermediate") Intermediate
+                                    option(value="expert") Expert
+                            div.form-group
+                                 h3 Frisbee
+                                label(for="skill5") Skill Level:
+                                select(name="skill" id = 'skill5')
+                                    option(value='beginner') Beginner
+                                    option(value="intermediate") Intermediate
+                                    option(value="expert") Expert
+                        // Modal footer
+                        .modal-footer
+                            button.btn.btn-danger(type='button', data-dismiss='modal') Update
+

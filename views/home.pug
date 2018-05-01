@@ -1,0 +1,23 @@
+extends layout.pug
+
+block content
+    .jumbotron#title
+        h1 Home
+        a#mainbut.btn.btn-default(href='https://localhost:3004/home/myEvents' role='button') My Events
+        a#mainbut.btn.btn-default(href='https://localhost:3004/home/create' role='button') Create Event
+        a#mainbut.btn.btn-default(href='https://localhost:3004/home' role='button') Home
+        a#mainbut.btn.btn-default(href='https://localhost:3004/' role='button') Logout
+        #name
+        div#chat
+            h2 Live Chat
+            div#chatWindow
+                div#output
+
+                div#feedback
+            input#handle(type = 'text' placeholder = "Handle")
+            input#message(type = 'text' placeholder = "Message")
+            button#send Send
+
+
+
+    script(src = '/javascripts/chat.js')
