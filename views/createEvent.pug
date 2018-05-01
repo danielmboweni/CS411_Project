@@ -7,6 +7,8 @@ block content
             h1 Create an Event
             a#mainbut.btn.btn-default(href='./myEvents' role='button') My Events
             a#mainbut.btn.btn-default(href='./join' role='button') Join Event
+            a#mainbut.btn.btn-default(href='./home' role='button') Home
+            a#mainbut.btn.btn-default(href='./' role='button') Logout
         .container#banner2
         .container#search
             h3 Find a Location
@@ -39,7 +41,7 @@ block content
                 .form-row
                     label.form-check-label(for = 'player') Number of Players Needed
                     input.form-control(type='text' placeholder='Max Players' name='player' id  = 'player' required)
-                button#form.btn.btn-default(type = 'submit' onclick="myFunction()") Create
+                button#form.btn.btn-default(type = 'submit') Create
 
 
 
@@ -66,7 +68,4 @@ block content
 
             });
 
-            function myFunction() {
-                alert("Event Created");
-            }
         });

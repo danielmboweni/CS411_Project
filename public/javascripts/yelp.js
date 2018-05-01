@@ -16,8 +16,8 @@ const client = yelp.client(ds-kYWUPNaHyS6uIjcygyw);
 
 client.search(searchRequest).then(response => {
     const firstResult = response.jsonBody.businesses[0];
-const prettyJson = JSON.stringify(firstResult, null, 4);
-console.log(prettyJson);
+    const prettyJson = JSON.stringify(firstResult, null, 4);
+    console.log(prettyJson);
 }).catch(e => {
     console.log(e);
 });

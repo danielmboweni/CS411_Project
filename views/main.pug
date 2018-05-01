@@ -28,23 +28,13 @@ html
                             input(type='text' name='username' id  = 'username' placeholder='John Doe' required)
                         button#main.btn.btn-default(type = 'submit') Enter
 
-                #mainbuttons.container-fluid.row
-                    a#mainbut.btn.btn-default(href='./myEvents' role='button') My Events
-                    a#mainbut.btn.btn-default(href='./createEvent' role='button') Create Event
-                    a#mainbut.btn.btn-default(href='./join' role='button') Join Event
 
             //granim gradient bg
             canvas#bg
-            script(src = "/javascripts/granim.min.js")
+            script(src = "/javascripts/granim.js")
 
         script.
             $(document).ready(function() {
-                if (window.location.href == 'http://localhost:3000/main'){
-                    $( "#mainbuttons" ).hide();
-                }else{
-                    $( "#mainbuttons" ).show();
-                    $( "#mainuser" ).hide();
-                };
                 (function (d, s, id) {
                     var js, fjs = d.getElementsByTagName(s)[0];
                     if (d.getElementById(id)) return;
@@ -74,5 +64,3 @@ html
                     }
                 });
             });
-
-

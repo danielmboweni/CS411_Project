@@ -25,11 +25,10 @@ html
                 h1 PICKUP
                 //placeholder login in
                 #placeholder
-                a(href='http://localhost:3000/main')
-                    button#continue.btn.btn-outline-light.btn-lg(type='button' onclick='login()') Signup/Login
+                button#continue.btn.btn-outline-light.btn-lg(type='button' onclick='login()') Signup/Login
 
             //granim gradient bg
-            script(src = "/javascripts/granim.min.js")
+            script(src = "/javascripts/granim.js")
 
 
         script.
@@ -45,21 +44,14 @@ html
                 //FB.AppEvents.logPageView();
                 FB.getLoginStatus(function (response) {
                     if (response.status === 'connected') {
-                        var accessToken = response.authResponse.accessToken;
-                        document.getElementById('status').innerHTML = 'We are connected.';
-                        document.getElementById('login').style.visibility = 'hidden';
-                        document.getElementById('submit').style.visibility = 'visible';
-                        FB.api('/me', 'GET', {fields: 'first_name,last_name,name,id,email'}, function (response) {
-                            document.getElementById('status').innerHTML = response.name;
-                            var fb_response = response;
-                            localStorage.setItem("response_fb", fb_response);
-                            window.location = 'https://localhost:3000/main'
-                        });
 
-                    } else if (response.status === 'not_authorized') {
-                        document.getElementById('status').innerHTML = 'We are not logged in.'
+                        window.location = 'https://localhost:3000/main'
+                    }
+
+
+                     else if (response.status === 'not_authorized') {
+
                     } else {
-                        document.getElementById('status').innerHTML = 'You are currently not logged into Facebook.';
                     }
                 });
 
@@ -80,17 +72,14 @@ html
             function login() {
                 FB.login(function (response) {
                     if (response.status === 'connected') {
-                        document.getElementById('status').innerHTML = 'We are connected.';
-                        document.getElementById('login').style.visibility = 'hidden';
-                        var e_mail = FB.api('/me', 'GET', {fields: 'first_name,last_name,name,id,email'}, function (response) {
-                            document.getElementById('status').innerHTML = response.name;
-                            window.location = 'https://localhost:3004/home'
-                        });
+
+                            window.location = 'https://localhost:3000/main'
+
 
                     } else if (response.status === 'not_authorized') {
-                        document.getElementById('status').innerHTML = 'We are not logged in.'
+
                     } else {
-                        document.getElementById('status').innerHTML = 'You are currently not logged into Facebook.';
+
                     }
                 }, {scope: 'email'});
             }
