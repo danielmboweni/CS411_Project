@@ -105,6 +105,7 @@ app.post('/loc',function(req,res){
 
 /*CREATED EVENT CONFIRM*/
 app.post('/myEvents',function(req,res){
+
     var eventCon = {
         name: req.body.eventName,
         maxppl: req.body.player,
@@ -120,7 +121,7 @@ app.post('/myEvents',function(req,res){
             console.log("1 document inserted");
             db.close();
         });
-        event.push(eventCon.name);
+        event.push(eventCon);
         console.log(username);
         console.log(event);
         var myquery = { user: username };
@@ -132,7 +133,7 @@ app.post('/myEvents',function(req,res){
             db.close();
         });
 
-        res.render('home');
+        res.render('myEvents', {myEvents:JSON.stringify(event)});
     });
 });
 
@@ -159,38 +160,33 @@ app.get('/join',function(req,res){
 app.post('/join',function(req,res){
     MongoClient.connect(url, function(err, db) {
         var dbb = db.db("users");
-        event.push(req.body.joinEvent);
-        console.log(event.toString());
+        var joined= {
+            name: req.body.joinEvent.name,
+            maxppl: req.body.joinEvent.maxppl,
+            date: req.body.joinEvent.date,
+            location: req.body.joinEvent
+        }
+        event.push(joined);
         var myquery = { user: username };
-        var newvalues = { $set: {user:username, name:event} };
+        var newvalues = { $set: {user:username, name:JSON.stringify(event)} };
+        console.log(JSON.stringify(event));
         console.log(newvalues)
-        dbb.collection("username").updateOne(myquery, newvalues, function(err, res) {
+        dbb.collection("username").updateOne(myquery, newvalues, function(err, rese) {
             if (err) throw err;
             console.log("1 document updated");
             db.close();
+            res.render('myEvents', {myEvents:JSON.stringify(event)});
         });
 
-        res.render('home');
     });
 });
 
 app.get('/myEvents',function(req,res){
-    console.log("here: "+ event.toString());
-    res.render('myEvents',{myEvents:event});
-    // MongoClient.connect(url, function(err, db) {
-    //     var dbo = db.db("pickupEvents");
-    //     var dbb = db.db("users");
-    //     var myEvent = [];
-    //     var myquery = { user: username };
-    //     var id = [];
-    //     var name;
-    //     dbb.collection("username").find(myquery, function(err, result) {
-    //         id = result.id;
-    //         name = result.name;
-    //     });
-    //
-    //     res.render('myEvents');
-    // });
+    // console.log("here: "+ event.toString());
+    // res.render('myEvents',{myEvents:event});
+    console.log(event.toString());
+    res.render('myEvents', {myEvents:JSON.stringify(event)});
+
 });
 module.exports = function(io) {
     var app = require('express');

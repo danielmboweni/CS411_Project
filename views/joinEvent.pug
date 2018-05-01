@@ -18,7 +18,6 @@ block content
         $(document).ready(function() {
             var events = !{eventList};
             var loc;
-            var namee;
             $.each(events, function(key, value) {
                 loc = value.location;
                 if (loc != null){
@@ -27,15 +26,9 @@ block content
                 }else{
                     loc = 'Not Available';
                 };
-                namee = value.name;
-                if (namee != null) {
-                    namee = namee.toString();
-                    namee = namee.split('_').join(' ');
-                } else {
-                    namee = 'Not Available';
-                };
+
                 var r = $('<input type ="radio" name  = "joinEvent" class="form-check-input"  id = "joinEvent"  value ='
-                    + namee + ' required> <div class = "container" id = "joinE">'
+                    + value.location + ' required> <div class = "container" id = "joinE">'
                     + 'Event Name: ' + value.name + '<br>'
                     + 'Max Number of Players: '+ value.maxppl + '<br>'
                     + 'Date: ' + value.date + '<br>'

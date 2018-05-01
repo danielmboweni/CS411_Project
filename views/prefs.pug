@@ -2,45 +2,47 @@
 extends layout.pug
 
 block content
-    .container
-        form#prefs.form(action='/home' method='POST')
-            div.form-group
-                h3 Catch
-                label(for="skill1") Skill Level:
-                select(name="skill1" id  = 'skill1')
-                    option(value='beginner') Beginner
-                    option(value="intermediate") Intermediate
-                    option(value="expert") Expert
+    .jumbotron#pre
+            h1 Preferences
+            form#prefs.form(action='/home' method='POST')
+                div.form-inline#preform
+                    div.col-md-2
+                        h3 Catch
+                        label(for="skill1") Skill Level:
+                        select(name="skill1" id  = 'skill1')
+                            option(value='beginner') Beginner
+                            option(value="intermediate") Intermediate
+                            option(value="expert") Expert
+                    div.col-md-2
+                        h3 Soccer
+                        label(for="skill2") Skill Level:
+                        select(name="skill2" id  = "skill2")
+                            option(value='beginner') Beginner
+                            option(value="intermediate") Intermediate
+                            option(value="expert") Expert
 
-            div.form-group
-                h3 Soccer
-                label(for="skill2") Skill Level:
-                select(name="skill2" id  = "skill2")
-                    option(value='beginner') Beginner
-                    option(value="intermediate") Intermediate
-                    option(value="expert") Expert
+                    div.col-md-2
+                        h3 Basketball
+                        label(for="skill3") Skill Level:
+                        select(name="skill3" id = "skill3")
+                            option(value='beginner') Beginner
+                            option(value="intermediate") Intermediate
+                            option(value="expert") Expert
+                    div.col-md-2
+                        h3 Football
+                        label(for="skill4") Skill Level:
+                        select(name="skill4" id = "skill4")
+                            option(value='beginner') Beginner
+                            option(value="intermediate") Intermediate
+                            option(value="expert") Expert
 
-            div.form-group
-                h3 Basketball
-                label(for="skill3") Skill Level:
-                select(name="skill3" id = "skill3")
-                    option(value='beginner') Beginner
-                    option(value="intermediate") Intermediate
-                    option(value="expert") Expert
+                    div.col-md-2
+                        h3 Frisbee
+                        label(for="skill5") Skill Level:
+                        select(name="skill5" id  = "skill5")
+                            option(value='beginner') Beginner
+                            option(value="intermediate") Intermediate
+                            option(value="expert") Expert
+                        button.btn.btn-default#prefbtn(type = 'submit') Enter
+                    div.col-md-2
 
-            div.form-group
-                h3 Football
-                label(for="skill4") Skill Level:
-                select(name="skill4" id = "skill4")
-                    option(value='beginner') Beginner
-                    option(value="intermediate") Intermediate
-                    option(value="expert") Expert
-            div.form-group
-                h3 Frisbee
-                label(for="skill5") Skill Level:
-                select(name="skill5" id  = "skill5")
-                    option(value='beginner') Beginner
-                    option(value="intermediate") Intermediate
-                    option(value="expert") Expert
-
-                button#form.btn.btn-default(type = 'submit') Hi
