@@ -84,12 +84,15 @@
   margin: 0px 0px 0px 0px;
 }
 
+#status{
+  color: white;
+}
 #user{
   margin-left: 30px;
 }
 
 #buttons{
-    margin-top: 15px;
+  margin-top: 15px;
 }
 #mainbut{
   color: white;
@@ -115,6 +118,3 @@
   background-color: grey;
   color: white;
 }
-
-
-

@@ -2,6 +2,7 @@ doctype html
 html
     head
         meta(charset='UTF-8')
+        meta(charset='UTF-8')
         title Pickup
         //linking style sheet
         link(rel='stylesheet', href='/stylesheets/style.css')
@@ -16,63 +17,117 @@ html
         // Latest compiled JavaScript
         script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
 
-
     body
-        block content
-            #hero.jumbotron.text-center
-                h1 Welcome to Pickup
-                form#mainuser.form-inline(action='/authorized' method='POST')
-                    .row
-                        .col-md-8#user
-                            label#mainlabel.form-check-label(for = 'username') Handle Name &nbsp;
-                            input(type='text' name='username' id  = 'username' placeholder='John Doe' required)
-                        button#main.btn.btn-default(type = 'submit') Enter
-
-                #mainbuttons.container-fluid.row
-                    a#mainbut.btn.btn-default(href='./myEvents' role='button') My Events
-                    a#mainbut.btn.btn-default(href='./createEvent' role='button') Create Event
-                    a#mainbut.btn.btn-default(href='./join' role='button') Join Event
-
-            //granim gradient bg
-            canvas#bg
-            script(src = "/javascripts/granim.min.js")
-
         script.
-            $(document).ready(function() {
-                if (window.location.href == 'http://localhost:3000/main'){
-                    $( "#mainbuttons" ).hide();
-                }else{
-                    $( "#mainbuttons" ).show();
-                    $( "#mainuser" ).hide();
-                };
-                (function (d, s, id) {
-                    var js, fjs = d.getElementsByTagName(s)[0];
-                    if (d.getElementById(id)) return;
-                    js = d.createElement(s);
-                    js.id = id;
-                    js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.12&appId=233735173856816&autoLogAppEvents=1';
-                    fjs.parentNode.insertBefore(js, fjs);
-                }(document, 'script', 'facebook-jssdk'));
+            window.fbAsyncInit = function () {
+                FB.init({
+                    appId: '1892677944089165',
+                    cookie: true,
+                    xfbml: true,
+                    version: 'v2.12'
+                });
 
-                var granimInstance = new Granim({
-                    element: '#bg',
-                    name: 'granim',
-                    direction: 'diagonal', // 'diagonal', 'top-bottom', 'radial'
-                    opacity: [1, 1],
-                    isPausedWhenNotInView: true,
-                    states: {
-                        "default-state": {
-                            gradients: [
-                                ['#fc5c7d', '#6a82fb'],
-                                ['#e1eec3', '#f05053'],
-                                ['#be93c5', '#7bc6cc'],
-                                ['#74ebd5', '#acb6e5'],
-                                ['#6190e8', '#a7bfe8']
+                //FB.AppEvents.logPageView();
+                FB.getLoginStatus(function (response) {
+                    if (response.status === 'connected') {
+                        var accessToken = response.authResponse.accessToken;
+                        document.getElementById('status').innerHTML = 'We are connected.';
+                        document.getElementById('login').style.visibility = 'hidden';
+                        document.getElementById('submit').style.visibility = 'visible';
+                        FB.api('/me', 'GET', {fields: 'first_name,last_name,name,id,email'}, function (response) {
+                            document.getElementById('status').innerHTML = response.name;
+                            var fb_response = response;
+                            localStorage.setItem("response_fb", fb_response);
+                            window.location = 'https://localhost:3004/home'
+                        });
 
-                            ]
-                        }
+                        /*back end call to database
+                        var MongoUsr = require('mongodb').MongoClient;
+                        var url = 'mongodb://localhost:27017/';
+                        var assert = require('assert');
+
+                        MongoUsr.connect(url, function (err, db) {
+                            assert.equal(null, err);
+                            var dbo = db.db("pickupdb");
+                            dbo.collection('user').find({Email: e_mail}).toArray(function (err, res) {
+                                assert.equal(null, err);
+                                if (res) {
+                                    window.location = 'https://localhost:3000/home'
+                                }
+                                else {
+                                    window.location = 'https://localhost:3000/newUsr'
+                                }
+                                db.close();
+                            });
+                        }); */
+                    } else if (response.status === 'not_authorized') {
+                        document.getElementById('status').innerHTML = 'We are not logged in.'
+                    } else {
+                        document.getElementById('status').innerHTML = 'You are currently not logged into Facebook.';
                     }
                 });
-            });
+
+            };
+
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {
+                    return;
+                }
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "https://connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+
+            // login with facebook with extra permissions
+            function login() {
+                FB.login(function (response) {
+                    if (response.status === 'connected') {
+                        document.getElementById('status').innerHTML = 'We are connected.';
+                        document.getElementById('login').style.visibility = 'hidden';
+                        var e_mail = FB.api('/me', 'GET', {fields: 'first_name,last_name,name,id,email'}, function (response) {
+                            document.getElementById('status').innerHTML = response.name;
+                            window.location = 'https://localhost:3004/home'
+                        });
+                        //var MongoUsr = require('mongodb').MongoClient;
+                        //var url = 'mongodb://localhost:27017/';
+                        //var assert = require('assert');
+                        /*
+                        MongoUsr.connect(url, function (err, db) {
+                            assert.equal(null, err);
+                            var dbo = db.db("pickupdb");
+                            dbo.collection('user').find({Email: e_mail}).toArray(function (err, res) {
+                                assert.equal(null, err);
+                                if (res) {
+                                    window.location = 'https://localhost:3000/home'
+                                }
+                                else {
+                                    window.location = 'https://localhost:3000/newUsr'
+                                }
+                                db.close();
+                            });
+                        });*/
+                    } else if (response.status === 'not_authorized') {
+                        document.getElementById('status').innerHTML = 'We are not logged in.'
+                    } else {
+                        document.getElementById('status').innerHTML = 'You are currently not logged into Facebook.';
+                    }
+                }, {scope: 'email'});
+            }
 
 
+
+block content
+    //hero jumbotron
+    #hero.jumbotron.text-center
+        h1 PICKUP
+        #status
+
+        //facebook login button
+        button#login(onclick='login()') Login
+
+        //search bar
+        .search-container
+            //form(action='/home' method='GET')
+                //button#submit Home

@@ -1,0 +1,22 @@
+[
+	{
+		"username": "thereIsSuchName",
+		"password": "123456"
+	},
+	{
+		"username": "test",
+		"password": "654321"
+	},
+	{
+		"username": "Iron Man",
+		"password": "123456"
+	},
+	{
+		"username": "user1",
+		"password": "123456"
+	},
+	{
+		"username": "FOO",
+		"password": "123456"
+	}
+]

@@ -1,0 +1,7 @@
+.idea
+.git
+*.log
+coverage
+npm-debug.log*
+public
+src
