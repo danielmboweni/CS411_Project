@@ -19,6 +19,7 @@ html
 
     body
         block content
+            //hero
             #hero.jumbotron.text-center
                 h1 Welcome to Pickup
                 form#mainuser.form-inline(action='/authorized' method='POST')
@@ -34,6 +35,8 @@ html
             script(src = "/javascripts/granim.js")
 
         script.
+
+            //gradient background animation
             $(document).ready(function() {
                 (function (d, s, id) {
                     var js, fjs = d.getElementsByTagName(s)[0];

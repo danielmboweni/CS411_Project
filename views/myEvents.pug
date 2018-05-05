@@ -2,6 +2,7 @@ extends layout.pug
 
 block content
     .jumbotron#title
+        //top nav
         h1 My Events
         a#mainbut.btn.btn-default(href='./createEvent' role='button') Create Event
         a#mainbut.btn.btn-default(href='./join' role='button') Join Event
@@ -12,11 +13,15 @@ block content
     .container#events
 
     script.
+        //get list of events that the user is part of
         $(document).ready(function () {
             var events = !{myEvents};
-            console.log(events);
+
+            //variable for location and name
             var loc;
             var name;
+
+            //trim the underscores for the equation and replace with space
             $.each(events, function (key, value) {
                 loc = value.location;
                 if (loc != null) {
@@ -33,13 +38,14 @@ block content
                     name = 'Not Available';
                 };
 
+                //display event details in a div
                 var r = $(' <div class = "container" id = "myEvents"><p>'
                     + 'Event Name: ' + name + '<br>'
                     + 'Max Number of Players: ' + value.maxppl + '<br>'
                     + 'Date: ' + value.date + '<br>'
                     + 'Location: ' + loc + '<br>'
                     + '</div></p><br>');
-                console.log(r);
+
                 $('#events').append(r);
             });
         });

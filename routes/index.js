@@ -106,6 +106,7 @@ app.post('/loc',function(req,res){
 /*CREATED EVENT CONFIRM*/
 app.post('/myEvents',function(req,res){
 
+    //take all the input info from the front end
     var eventCon = {
         name: req.body.eventName,
         maxppl: req.body.player,
@@ -113,6 +114,8 @@ app.post('/myEvents',function(req,res){
         location: req.body.location
     };
     MongoClient.connect(url, function(err, db) {
+
+        //insert event into the database
         if (err) throw err;
         var dbo = db.db("pickupEvents");
         var dbb = db.db("users");
@@ -121,18 +124,23 @@ app.post('/myEvents',function(req,res){
             console.log("1 document inserted");
             db.close();
         });
+
+        //adds event to the list of events that the user is in
         event.push(eventCon);
         console.log(username);
         console.log(event);
         var myquery = { user: username };
         var newvalues = { $set: {user:username, name:event} };
         console.log(newvalues)
+
+        //update username db with new event
         dbb.collection("username").updateOne(myquery, newvalues, function(err, res) {
             if (err) throw err;
             console.log("1 document updated");
             db.close();
         });
 
+        //take user to myEvent page and display the user's created event
         res.render('myEvents', {myEvents:JSON.stringify(event)});
     });
 });
@@ -141,9 +149,12 @@ app.post('/myEvents',function(req,res){
 app.get('/join',function(req,res){
 
     MongoClient.connect(url, function(err, db) {
+
         var events = [];
         if (err) throw err;
         var dbo = db.db("pickupEvents");
+
+        //take all events in database and send to the front end
         dbo.collection("events").find({}).toArray(function(err, r) {
             if (err) throw err;
             for(i = 0; i< r.length-1; i ++) {
@@ -158,7 +169,9 @@ app.get('/join',function(req,res){
 
 });
 app.post('/join',function(req,res){
+
     MongoClient.connect(url, function(err, db) {
+
         var dbb = db.db("users");
         var joined= {
             name: req.body.joinEvent.name,
@@ -166,7 +179,12 @@ app.post('/join',function(req,res){
             date: req.body.joinEvent.date,
             location: req.body.joinEvent
         }
-        event.push(joined);
+        event.push(joined); //does not quite work
+        // ^main idea: get the info of event joined when user click join and log it
+        //now only the location is pulled from the front end
+
+        //updates the username database with the joined event and sends
+        //event info to front end
         var myquery = { user: username };
         var newvalues = { $set: {user:username, name:JSON.stringify(event)} };
         console.log(JSON.stringify(event));
@@ -182,9 +200,7 @@ app.post('/join',function(req,res){
 });
 
 app.get('/myEvents',function(req,res){
-    // console.log("here: "+ event.toString());
-    // res.render('myEvents',{myEvents:event});
-    console.log(event.toString());
+    //render my Events page
     res.render('myEvents', {myEvents:JSON.stringify(event)});
 
 });
